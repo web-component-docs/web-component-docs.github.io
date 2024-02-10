@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <script src="elements.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            max-width: 1000px;
+            background-color: beige;
+            padding: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>&lt;web-components-attributes&gt;</h1>
+        <web-component-attributes component="slide-viewer">
+            play=3000:Auto play every 1000ms:3000:
+            nobutton:Hides the prev/next buttons:button:
+            scrollbar:Shows the scrollbar:noscrollbar:
+            dots=0:Sets dot size in pixels:15:
+            rtl:Right to left start at the last slide:ltr:
+            noreverse:No reverse loop:reverse:
+        </web-component-attributes>
+    </main>
+</body>
+
+</html>
