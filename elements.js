@@ -25,8 +25,7 @@ customElements.define('web-component-attributes', class extends HTMLElement {
                     ":host{display:grid;grid:auto/fit-content(8em) fit-content(16em) fit-content(4em) fit-content(2em);font-family:sans-serif}" +
                     "attribute-title{font-weight:bold;font-size:1.2em}" +
                     "*:not(empty){padding:0.2em;border-bottom:1px solid darkgrey}" +
-                    "default{text-align:center}" +
-                    "observed{text-align:right}"
+                    "default,observed{text-align:center}"
             }),
             // ------------------------------------------------------------ create <attribute-titles>
             ...[
@@ -42,7 +41,7 @@ customElements.define('web-component-attributes', class extends HTMLElement {
                     createElement("attributes", { className: "name", innerHTML: attrname }),
                     createElement("description", { innerHTML }),
                     createElement("default", { innerHTML: defaultValue }),
-                    createElement("observed", { innerHTML: observed })
+                    createElement("observed", { innerHTML: observed ? "yes" : "" })
                 ];
             }).flat()
             // ------------------------------------------------------------
