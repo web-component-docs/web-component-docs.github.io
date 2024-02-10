@@ -37,7 +37,7 @@ customElements.define('web-component-attributes', class extends HTMLElement {
             ].map(title => createElement("attribute-title", { innerHTML: title + "&nbsp;" })),
             // ------------------------------------------------------------ create attribute lines
             ...lines(this.innerHTML).map(line => {
-                const [attrname, innerHTML, defaultValue = "", observed = false] = line.split(':').map(part => part.trim());
+                const [attrname, innerHTML, defaultValue = "", observed = false] = line.split('|').map(part => part.trim());
                 return [
                     createElement("attributes", { className: "name", innerHTML: attrname }),
                     createElement("description", { innerHTML }),
