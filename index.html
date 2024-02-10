@@ -16,6 +16,8 @@
             padding: 1em;
             margin: 0 auto;
         }
+        copy-paste-button {
+        }
     </style>
 </head>
 
@@ -27,7 +29,7 @@
     </todo>
     <main>
         <section>
-            <h1>&lt;web-components-attributes&gt;</h1>
+            <h2>&lt;web-components-attributes&gt;</h2>
             <web-component-attributes component="slide-viewer">
                 play=3000 | Auto play every 1000ms | 3000 | Y
                 nobutton | Hides the prev/next buttons | button
@@ -37,15 +39,27 @@
                 noreverse | No reverse loop | reverse
             </web-component-attributes>
         </section>
+        <section style="color:red">
+            <h2>copy-paste-button</h2>
+            21 <copy-paste-button selector="#loadscript"></copy-paste-button> 22
+        </section>
+
         <section>
             <h2>Load</h2>
             <p>
-                <code>&lt;script src="https://web-component-docs.github.io/elements.min.js"></code>
+                <copy-paste-button>
+                    <code id="loadscript">&lt;script src="https://web-component-docs.github.io/elements.min.js"></code>
+                </copy-paste-button>
             </p>
             <b>Filesize</b>
             <file-size src="https://web-component-docs.github.io/elements.min.js"></file-size>
         </section>
     </main>
+    <script>
+        document.addEventListener('copy-paste-button', (evt) => {
+            console.log(evt.target.text);
+        });
+    </script>
 </body>
 
 </html>

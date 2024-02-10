@@ -30,7 +30,7 @@ customElements.define('web-component-attributes', class extends HTMLElement {
             // ------------------------------------------------------------ create <attribute-titles>
             ...[
                 "attributes &nbsp;&nbsp;",
-                "&lt;" + (this.getAttribute("component") || `set attribute component="name"`) + "&gt;",
+                "&lt;" + (this.getAttribute("component") || 'set attribute component="name"') + "&gt;",
                 "default",
                 "observed"
             ].map(title => createElement("attribute-title", { innerHTML: title + "&nbsp;" })),
@@ -48,4 +48,20 @@ customElements.define('web-component-attributes', class extends HTMLElement {
         )// append
     }// render
 });// customElements.define
-// ************************************************************************
+// ************************************************************************ <copy-paste-button>
+customElements.define('copy-paste-button', class extends HTMLElement {
+    constructor() {
+        super().attachShadow({
+            mode: "open"
+        }).innerHTML =
+            '<svg part="svg" viewBox="0 0 48 48" style="width:1.2em;cursor:copy;background:teal">' +
+            '<path d="m1 20c0-3 2-5 5-5h4a2 2 90 010 4h-4a1 1 90 00-1 1v19c0 1 1 1 1 1h19a1 1 90 001-1v-4a2 2 90 014 0v4a5 5 90 01-5 5h-19a5 5 90 01-5-5zm13-13c0-3 2-5 5-5h19c3 0 5 2 5 5v19a5 5 90 01-5 5h-19a5 5 90 01-5-5zm5-1a1 1 90 00-1 1v19c0 1 1 1 1 1h19a1 1 90 001-1v-19a1 1 90 00-1-1z"/></svg>';
+        this.onclick = async () => {
+            this.text = (
+                this.getAttribute("selector") ? document.querySelector(this.getAttribute("selector")) : this
+            ).textContent.trim();
+            await navigator.clipboard.writeText(this.text);
+            this.dispatchEvent(new Event(this.localName, { bubbles: 1 }));
+        }
+    }
+});
