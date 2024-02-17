@@ -22,9 +22,15 @@ customElements.define('web-component-attributes', class extends HTMLElement {
             // ------------------------------------------------------------ create <style>
             createElement("style", {
                 innerHTML:
-                    ":host{display:grid;grid:auto/fit-content(8em) fit-content(16em) fit-content(4em) fit-content(2em);font-family:sans-serif}" +
-                    "attribute-title{font-weight:bold;font-size:1.2em}" +
+                    ":host{display:grid;font-family:sans-serif}" +
+                    ":host{grid:auto/fit-content(8em) fit-content(20em) fit-content(5em) fit-content(2em)}" +
+                    // hide observed column if not present
+                    ":host([columncount='3']) .observed{visibility:hidden}" +
+                    // header row
+                    "attribute-title{font-weight:bold;font-size:1.1em}" +
+                    // draw lines below row
                     "*:not(empty){padding:0.2em;border-bottom:1px solid darkgrey}" +
+                    // align columns
                     "default,observed{text-align:center}"
             }),
             // ------------------------------------------------------------ create <attribute-titles>
@@ -33,15 +39,22 @@ customElements.define('web-component-attributes', class extends HTMLElement {
                 "&lt;" + (this.getAttribute("component") || 'set attribute component="name"') + "&gt;",
                 "default",
                 "observed"
-            ].map(title => createElement("attribute-title", { innerHTML: title + "&nbsp;" })),
+            ].map(title => createElement("attribute-title", {
+                className: title,
+                innerHTML: title + "&nbsp;"
+            })),
             // ------------------------------------------------------------ create attribute lines
             ...lines(this.innerHTML).map(line => {
                 const [attrname, innerHTML, defaultValue = "", observed = false] = line.split('|').map(part => part.trim());
+                this.setAttribute("columncount", observed ? 4 : 3);
                 return [
                     createElement("attributes", { className: "name", innerHTML: attrname }),
                     createElement("description", { innerHTML }),
                     createElement("default", { innerHTML: defaultValue }),
-                    createElement("observed", { innerHTML: observed ? "yes" : "" })
+                    createElement("observed", {
+                        className: "observed",
+                        innerHTML: observed ? "yes" : ""
+                    })
                 ];
             }).flat()
             // ------------------------------------------------------------
@@ -54,14 +67,17 @@ customElements.define('copy-paste-button', class extends HTMLElement {
         super().attachShadow({
             mode: "open"
         }).innerHTML =
-            '<svg part="svg" viewBox="0 0 48 48" style="width:1.2em;cursor:copy;background:teal">' +
+            '<slot></slot>' +
+            '<svg part="svg" viewBox="0 0 48 48" style="width:1.2em;cursor:copy">' +
             '<path d="m1 20c0-3 2-5 5-5h4a2 2 90 010 4h-4a1 1 90 00-1 1v19c0 1 1 1 1 1h19a1 1 90 001-1v-4a2 2 90 014 0v4a5 5 90 01-5 5h-19a5 5 90 01-5-5zm13-13c0-3 2-5 5-5h19c3 0 5 2 5 5v19a5 5 90 01-5 5h-19a5 5 90 01-5-5zm5-1a1 1 90 00-1 1v19c0 1 1 1 1 1h19a1 1 90 001-1v-19a1 1 90 00-1-1z"/></svg>';
         this.onclick = async () => {
-            this.text = (
-                this.getAttribute("selector") ? document.querySelector(this.getAttribute("selector")) : this
-            ).textContent.trim();
+            this.text = (this.getAttribute("for")
+                ? document.querySelector(this.getAttribute("for"))
+                : this)
+                .textContent.trim();
             await navigator.clipboard.writeText(this.text);
             this.dispatchEvent(new Event(this.localName, { bubbles: 1 }));
         }
     }
 });
+// ************************************************************************ <web-component-src>

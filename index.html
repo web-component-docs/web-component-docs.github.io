@@ -16,8 +16,8 @@
             padding: 1em;
             margin: 0 auto;
         }
-        copy-paste-button {
-        }
+
+        copy-paste-button {}
     </style>
 </head>
 
@@ -30,8 +30,17 @@
     <main>
         <section>
             <h2>&lt;web-components-attributes&gt;</h2>
+            <p>
+                | (pipe) separated list of attributes and their descriptions.
+            </p>
+            <code>
+                            attr | description | default |observed
+                        </code>
+            <p>
+                converted to a table:
+            </p>
             <web-component-attributes component="slide-viewer">
-                play=3000 | Auto play every 1000ms | 3000 | Y
+                play=3000 | Auto play every 1000ms | 3000
                 nobutton | Hides the prev/next buttons | button
                 scrollbar | Shows the scrollbar | noscrollbar
                 dots=0 | Sets dot size in pixels | 15
@@ -39,25 +48,43 @@
                 noreverse | No reverse loop | reverse
             </web-component-attributes>
         </section>
-        <section style="color:red">
-            <h2>copy-paste-button</h2>
-            21 <copy-paste-button selector="#loadscript"></copy-paste-button> 22
-        </section>
-
         <section>
-            <h2>Load</h2>
+            <h2>&lt;${name}></h2>
             <p>
-                <copy-paste-button>
+                <!-- ${template.description} -->
+                </p>
+                <h3>Load</h3>
+                <p>
+                    <copy-paste-button id="copyscript">
                     <code id="loadscript">&lt;script src="https://web-component-docs.github.io/elements.min.js"></code>
                 </copy-paste-button>
             </p>
-            <b>Filesize</b>
+            <h3>Use</h3>
+            <p>
+                <!-- use -->
+            </p>
+            <b>Filesize:</b>
             <file-size src="https://web-component-docs.github.io/elements.min.js"></file-size>
         </section>
+<web-component-src name="slide-viewer" src="https://web-component-docs.github.io/elements.min.js">
+    <template description>
+
+    </template>
+    <template attributes>
+        play=3000 | Auto play every 1000ms | 3000 | Y
+        nobutton | Hides the prev/next buttons | button
+        scrollbar | Shows the scrollbar | noscrollbar
+        dots=0 | Sets dot size in pixels | 15
+        rtl | Right to left start at the last slide | ltr
+        noreverse | No reverse loop | reverse
+    </template>
     </main>
     <script>
         document.addEventListener('copy-paste-button', (evt) => {
-            console.log(evt.target.text);
+            console.log(21, evt.target.text);
+        });
+                copyscript.addEventListener('click', (evt) => {
+                    console.log(22, evt.target.text);
         });
     </script>
 </body>
