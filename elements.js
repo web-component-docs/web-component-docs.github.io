@@ -23,7 +23,7 @@ customElements.define('web-component-attributes', class extends HTMLElement {
             createElement("style", {
                 innerHTML:
                     ":host{display:grid;font-family:sans-serif}" +
-                    ":host{grid:auto/fit-content(8em) fit-content(20em) fit-content(5em) fit-content(2em)}" +
+                    ":host{grid:auto/fit-content(8em) fit-content(30em) fit-content(5em) fit-content(2em)}" +
                     // hide observed column if not present
                     ":host([columncount='3']) .observed{visibility:hidden}" +
                     // header row
